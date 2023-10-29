@@ -16,7 +16,7 @@ namespace FoodierAPI.DataAccessLayer
             _connection = new FoodierConnection(configuration);
         }
 
-        public List<ProductModel> GetProduct(int? productID, string? productName, int? shopID, string? shopName, int? groceryId, string? groceryName)
+        public List<ProductModel> GetProduct(int? productID, string? productName, int? shopID, string? shopName, int? groceryId, string? groceryName , int?specialId)
         {
             SqlParameter[] listParam = new[]
             {
@@ -60,6 +60,13 @@ namespace FoodierAPI.DataAccessLayer
                     IsNullable= true,
                     Value = groceryName
                 },
+                new SqlParameter()
+                {
+                    ParameterName = "@pSpecialId",
+                    SqlDbType =SqlDbType.Int,
+                    IsNullable= true,
+                    Value = specialId
+                },
             };
 
             DataSet ds = _connection.Get(StoredProcedure.SP_SEARCHPRODUCT, listParam);
@@ -75,7 +82,7 @@ namespace FoodierAPI.DataAccessLayer
                 model.ProductDescription = dr.Field<string>("ProductDescription") ?? "";
                 model.ProductQuantity = dr.Field<int>("ProductQuantity");
                 double ProductDiscount = (double)dr["ProductDiscount"], ProductPrice = (double)dr["ProductPrice"];
-                model.ProductOrigin = dr.Field<string>("ProductDescription") ?? "";
+                model.ProductOrigin = dr.Field<string>("ProductOrigin") ?? "";
                 model.ProductDiscount = (float)ProductDiscount;
                 model.ProductPrice = (float)ProductPrice;
 
@@ -88,6 +95,42 @@ namespace FoodierAPI.DataAccessLayer
                 model.GroceryName = dr.Field<string>("CategoryName") ?? "";
                 model.CategoryDescription = dr.Field<string>("CategoryDescription") ?? "";
                 model.Thumbnail = dr.Field<string>("Thumbnail") ?? "";
+                model.Unit = dr["Unit"] == DBNull.Value ? "" : Convert.ToString(dr["Unit"]);
+
+                model.SpecialId = dr["SpecialId"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SpecialId"]);
+                model.SpecialName = dr.Field<string>("SpecialName") ?? "";
+
+                productLst.Add(model);
+            }
+
+            return productLst;
+        }
+
+
+
+        public List<ProductImageModel> GetProductImage(int productID)
+        {
+            SqlParameter[] listParam = new[]
+            {
+                new SqlParameter(){
+                    ParameterName = "@productid",
+                    SqlDbType = SqlDbType.Int,
+                    IsNullable= true,
+                    Value = productID,
+                },
+            };
+
+            DataSet ds = _connection.Get(StoredProcedure.SP_GETPRODUCTIMAGE, listParam);
+
+            List<ProductImageModel> productLst = new List<ProductImageModel>();
+
+            DataTable dt = ds.Tables[0];
+            foreach (DataRow dr in dt.Rows)
+            {
+                ProductImageModel model = new ProductImageModel();
+                model.Id = dr.Field<int>("id");
+                model.Url = dr.Field<string>("url");
+                model.ProductId = dr.Field<int>("Productid");
 
                 productLst.Add(model);
             }

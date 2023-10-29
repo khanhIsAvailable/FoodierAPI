@@ -19,11 +19,17 @@ namespace FoodierAPI.Controllers
         }
 
         [HttpGet("search-product")]
-        public List<ProductModel> SearchProduct(int? productID, string? productName, int? shopID, string? shopName, int? groceryId, string? groceryName)
+        public List<ProductModel> SearchProduct(int? productID, string? productName, int? shopID, string? shopName, int? groceryId, string? groceryName, int?specialId)
         {
             
-            return _productDAL.GetProduct(productID, productName, shopID, shopName, groceryId, groceryName);
+            return _productDAL.GetProduct(productID, productName, shopID, shopName, groceryId, groceryName, specialId);
 
+        }
+
+        [HttpGet("Get-product-image")]
+        public List<ProductImageModel> GetProductImage (int productid)
+        {
+            return _productDAL.GetProductImage(productid);
         }
 
 
