@@ -15,5 +15,7 @@
         public static readonly string SP_GETGROCERY = "sp_getgrocery";
 
         public static readonly string SP_LOGIN = "[sp_Login]";
+
+        public static readonly string SP_CREATEACCOUNT = "sp_AddUserAccount";
     }
 }

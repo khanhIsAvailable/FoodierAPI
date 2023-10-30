@@ -61,7 +61,8 @@ namespace FoodierAPI.DataAccessLayer
                     ProductName = Convert.ToString(dr["Name"]),
                     Price = Convert.ToDouble(dr["Price"]),
                     Quantity = Convert.ToInt32(dr["Quantity"]),
-                    Thumbnail = Convert.ToString(dr["Thumbnail"] == DBNull.Value ? "" : dr["Thumbnail"] == DBNull.Value),
+                    Unit = Convert.ToString(dr["Unit"]),
+                    Thumbnail = Convert.ToString(dr["Thumbnail"] == DBNull.Value ? "" : dr["Thumbnail"]),
                     Note = Convert.ToString(dr["Note"] == DBNull.Value ? "" : dr["Note"]),
                 });
             }

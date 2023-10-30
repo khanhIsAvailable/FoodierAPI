@@ -3,6 +3,7 @@ using FoodierAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FoodierAPI.Controllers
 {
@@ -18,6 +19,7 @@ namespace FoodierAPI.Controllers
             _productDAL = new ProductDAL(configuration);
         }
 
+        [Authorize]
         [HttpGet("search-product")]
         public List<ProductModel> SearchProduct(int? productID, string? productName, int? shopID, string? shopName, int? groceryId, string? groceryName, int?specialId)
         {
@@ -26,6 +28,7 @@ namespace FoodierAPI.Controllers
 
         }
 
+        [Authorize]
         [HttpGet("Get-product-image")]
         public List<ProductImageModel> GetProductImage (int productid)
         {

@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Json.Net" Version="1.0.33" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.22" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NgrokApi" Version="0.9.0" />

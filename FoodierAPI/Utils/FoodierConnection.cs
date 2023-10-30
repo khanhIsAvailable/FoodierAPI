@@ -73,5 +73,24 @@ namespace FoodierAPI.Utils
 
         }
 
+        public CResponse Login(string spname, SqlParameter[] sqlParameters)
+        {
+            _sqlConnection.Open();
+
+
+            SqlCommand cmd = new SqlCommand(spname, _sqlConnection);
+
+            cmd.Parameters.AddRange(sqlParameters);
+
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.ExecuteNonQuery();
+            _sqlConnection.Close();
+
+            return new CResponse(Convert.ToInt32(cmd.Parameters["@returnCode"].Value), cmd.Parameters["@returnMessage"].Value.ToString(), Convert.ToString(cmd.Parameters["@userId"].Value));
+
+        }
+
     }
 }

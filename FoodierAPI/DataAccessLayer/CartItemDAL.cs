@@ -22,12 +22,12 @@ namespace FoodierAPI.DataAccessLayer
             SqlParameter[] param = new[]
             {
                 new SqlParameter(){
-                    ParameterName = "@userID",
+                    ParameterName = "@userId",
                     SqlDbType = SqlDbType.Int,
                     Value = userID
                 },
                 new SqlParameter(){
-                    ParameterName = "@productID",
+                    ParameterName = "@productId",
                     SqlDbType = SqlDbType.Int,
                     Value = productID
                 },
@@ -39,6 +39,7 @@ namespace FoodierAPI.DataAccessLayer
                 new SqlParameter(){
                     ParameterName = "@note",
                     SqlDbType = SqlDbType.NVarChar,
+                    Size = -1,
                     Value = note
                 },
                 new SqlParameter() {
@@ -49,7 +50,7 @@ namespace FoodierAPI.DataAccessLayer
                 new SqlParameter() {
                     ParameterName = "@returnMessage",
                     SqlDbType = SqlDbType.NVarChar,
-                    Size= 300,
+                    Size= -1,
                     Direction = ParameterDirection.Output
                 }
         };
